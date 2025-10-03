@@ -1,35 +1,47 @@
 import java.util.*;
-import java.util.stream.*;
 
-class Student {
+class Employee {
     String name;
-    double marks;
+    int age;
+    double salary;
 
     // Constructor
-    Student(String name, double marks) {
+    Employee(String name, int age, double salary) {
         this.name = name;
-        this.marks = marks;
+        this.age = age;
+        this.salary = salary;
+    }
+
+    // To print employee details
+    @Override
+    public String toString() {
+        return name + " | Age: " + age + " | Salary: " + salary;
     }
 }
 
-public class StudentFiltering {
+public class EmployeeSorting {
     public static void main(String[] args) {
-        // Step 1: Store Student objects in a list
-        List<Student> students = Arrays.asList(
-            new Student("Sahil", 80),
-            new Student("Ankit", 72),
-            new Student("Riya", 90),
-            new Student("Meena", 65),
-            new Student("Karan", 78)
+        // Step 1: Store Employee objects in a list
+        List<Employee> employees = Arrays.asList(
+            new Employee("Sahil", 24, 55000),
+            new Employee("Ankit", 30, 70000),
+            new Employee("Riya", 22, 50000),
+            new Employee("Meena", 28, 65000)
         );
 
-        // Step 2: Filter students scoring above 75%, sort by marks, and display names
-        System.out.println("Students scoring above 75% (sorted by marks):");
+        // Step 2: Sort by name (alphabetically)
+        employees.sort((e1, e2) -> e1.name.compareTo(e2.name));
+        System.out.println("Sorted by Name:");
+        employees.forEach(System.out::println);
 
-        students.stream()
-                .filter(s -> s.marks > 75)   // filtering
-                .sorted((s1, s2) -> Double.compare(s1.marks, s2.marks))  // sorting
-                .map(s -> s.name)  // mapping only names
-                .forEach(System.out::println); // displaying
+        // Step 3: Sort by age (ascending)
+        employees.sort((e1, e2) -> Integer.compare(e1.age, e2.age));
+        System.out.println("\nSorted by Age:");
+        employees.forEach(System.out::println);
+
+        // Step 4: Sort by salary (descending)
+        employees.sort((e1, e2) -> Double.compare(e2.salary, e1.salary));
+        System.out.println("\nSorted by Salary (Descending):");
+        employees.forEach(System.out::println);
     }
 }
