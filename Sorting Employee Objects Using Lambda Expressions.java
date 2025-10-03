@@ -1,46 +1,35 @@
 import java.util.*;
+import java.util.stream.*;
 
-class Employee {
+class Student {
     String name;
-    int age;
-    double salary;
+    double marks;
 
     // Constructor
-    Employee(String name, int age, double salary) {
+    Student(String name, double marks) {
         this.name = name;
-        this.age = age;
-        this.salary = salary;
-    }
-
-    // For printing
-    @Override
-    public String toString() {
-        return name + " | Age: " + age + " | Salary: " + salary;
+        this.marks = marks;
     }
 }
 
-public class EmployeeSorting {
+public class StudentFiltering {
     public static void main(String[] args) {
-        List<Employee> employees = Arrays.asList(
-                new Employee("Sahil", 24, 55000),
-                new Employee("Ankit", 30, 70000),
-                new Employee("Riya", 22, 50000),
-                new Employee("Meena", 28, 65000)
+        // Step 1: Store Student objects in a list
+        List<Student> students = Arrays.asList(
+            new Student("Sahil", 80),
+            new Student("Ankit", 72),
+            new Student("Riya", 90),
+            new Student("Meena", 65),
+            new Student("Karan", 78)
         );
 
-        // Sort by name (alphabetically)
-        employees.sort((e1, e2) -> e1.name.compareTo(e2.name));
-        System.out.println("\nSorted by Name:");
-        employees.forEach(System.out::println);
+        // Step 2: Filter students scoring above 75%, sort by marks, and display names
+        System.out.println("Students scoring above 75% (sorted by marks):");
 
-        // Sort by age (ascending)
-        employees.sort((e1, e2) -> Integer.compare(e1.age, e2.age));
-        System.out.println("\nSorted by Age:");
-        employees.forEach(System.out::println);
-
-        // Sort by salary (descending)
-        employees.sort((e1, e2) -> Double.compare(e2.salary, e1.salary));
-        System.out.println("\nSorted by Salary (Descending):");
-        employees.forEach(System.out::println);
+        students.stream()
+                .filter(s -> s.marks > 75)   // filtering
+                .sorted((s1, s2) -> Double.compare(s1.marks, s2.marks))  // sorting
+                .map(s -> s.name)  // mapping only names
+                .forEach(System.out::println); // displaying
     }
 }
